@@ -208,38 +208,55 @@
         </div>
     </section>
 
-    <!-- 圖片拼貼區塊 (Gallery) -->
-    <section class="py-12 md:py-24 px-4 md:px-6 max-w-[1440px] mx-auto">
-        <div class="relative w-full h-[60vh] md:h-[70vh] mb-4 md:mb-6 overflow-hidden group reveal">
-            <img src="9915.JPG" class="w-full h-full object-cover transition-transform duration-[10s] ease-linear group-hover:scale-105" alt="Global">
-            <div class="absolute inset-0 bg-black/40"></div>
-            <div class="absolute bottom-10 left-6 md:bottom-20 md:left-12">
-                <h2 class="text-[40px] md:text-[80px] font-bold leading-[0.95] text-white drop-shadow-2xl">各式<br>工作照片</h2>
+<!-- 四張全彩大器圖片拼貼區塊 (Gallery) -->
+    <section class="py-16 md:py-28 px-4 md:px-12 max-w-[1440px] mx-auto">
+        <!-- 第一張大圖：Global Experience -->
+        <div class="relative w-full h-[60vh] md:h-[70vh] mb-6 overflow-hidden rounded-[16px] group reveal">
+            <img src="9915.JPG" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Global Experience">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-10 left-6 md:bottom-16 md:left-12">
+                <h2 class="text-[36px] md:text-[72px] font-bold leading-[0.95] text-white">
+                    各式<br>工作照片
+                </h2>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal">
-                <img src="7772.JPG" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
-                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">銷售<br>人員</h3>
+        <!-- 下方三張並排圖片 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 圖片 1 -->
+            <div class="relative h-[400px] md:h-[550px] group overflow-hidden rounded-[16px] bg-cardbg reveal">
+                <img src="7772.JPG" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Global Citizen">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">
+                    銷售<br>人員
+                </h3>
             </div>
-            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal" style="transition-delay: 100ms;">
-                <img src="9612.jpg" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
-                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">展場<br>記者會模特</h3>
-            </div
-            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal" style="transition-delay: 200ms;">
-                <img src="0899.jpg" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+            
+            <!-- 圖片 2 -->
+            <div class="relative h-[400px] md:h-[550px] group overflow-hidden rounded-[16px] bg-cardbg reveal" style="transition-delay: 100ms;">
+                <img src="9612.jpg" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Brand Ambassador">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">
+                    展場<br>記者會模特
+                </h3>
+            </div>
+            
+            <!-- 圖片 3 -->
+            <div class="relative h-[400px] md:h-[550px] group overflow-hidden rounded-[16px] bg-cardbg reveal" style="transition-delay: 200ms;">
+                <img src="0899.jpg" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Digital Storyteller">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">
+                    宣傳<br>人員
+                </h3>
             </div>
         </div>
     </section>
 
+    
     <!-- Footer / CTA -->
     <footer id="contact" class="relative py-32 md:py-48 flex flex-col items-center justify-center text-center overflow-hidden bg-grid">
         <div class="z-10 reveal">
-            <h2 class="text-3xl md:text-[56px] font-bold text-white mb-12">Ready to build <br class="hidden md:block">something amazing?</h2>
+            <h2 class="text-3xl md:text-[56px] font-bold text-white mb-12">適應力強、認真負責 <br class="hidden md:block">希望有機會能合作</h2>
             <div class="flex items-center justify-center space-x-6 md:space-x-8">
                 <a href="mailto:betty54776@gmail.com" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-cardbg border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fas fa-envelope"></i></a>
                 <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-cardbg border border-white/10 flex items-center justify-center hover:bg-[#0077b5] hover:border-[#0077b5] transition-all"><i class="fab fa-linkedin-in"></i></a>
