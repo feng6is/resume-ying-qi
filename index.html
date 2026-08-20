@@ -1,433 +1,226 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>曾盈綺 Ying-Qi Zeng | Portfolio</title>
+    <title>Betty Tseng | Portfolio</title>
+    <!-- 引入 Tailwind CSS 進行排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0A0A0A',
+                        cardbg: '#151515'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 引入 Google 字體與 Icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 深色主題與基礎設定 */
-        :root {
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
-            --text-main: #ffffff;
-            --text-muted: #a1a1a6;
-            --accent: #ffffff;
-            --border-color: rgba(255, 255, 255, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        /* 佈局容器 */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-
-        /* 標籤 (Tags) */
-        .tag-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .tag {
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        /* 首頁巨型橫幅 (Hero Section) */
-        .hero-section {
-            position: relative;
-            height: 85vh;
-            border-radius: 32px;
-            overflow: hidden;
-            margin-bottom: 80px;
-            display: flex;
-            align-items: flex-end;
-            padding: 60px;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            /* 預設的深灰色漸層，放上照片後可將此行刪除或保留作為底色 */
-            background: linear-gradient(45deg, #1a1a1a, #0a0a0a); 
-            transition: transform 0.5s ease-out;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            transform: translateY(30px);
-            opacity: 0;
-            animation: fadeUp 1s forwards 0.2s;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 24px;
-        }
-
-        /* 區塊標題 */
-        .section-header {
-            text-align: center;
-            margin: 120px 0 60px;
-        }
-
-        .section-category {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        /* 大型專案卡片 (參考 image_2.png) */
-        .project-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            transition: transform 0.4s ease, border-color 0.4s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .project-img-wrapper {
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            background-color: #1f1f1f;
-            position: relative;
-        }
-
-        .project-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .project-card:hover .project-img {
-            transform: scale(1.05);
-        }
-
-        .project-info {
-            padding: 40px;
-        }
-
-        .project-category {
-            color: #4a90e2; /* 點綴色，可根據照片色調調整 */
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .project-desc {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin-bottom: 24px;
-        }
-
-        /* 網格照片區塊 (參考 image.png 下半部) */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            height: 60vh;
-            margin-bottom: 120px;
-        }
-
-        .grid-item {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            background-color: #1f1f1f;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .grid-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .grid-overlay-text {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            z-index: 2;
-        }
-
-        .grid-overlay-text h3 {
-            font-size: 2rem;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        /* 動畫 */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* RWD 響應式 */
-        @media (max-width: 768px) {
-            .hero-section { height: 70vh; padding: 30px; border-radius: 20px; }
-            .hero-title { font-size: 2.5rem; }
-            .project-img-wrapper { height: 250px; }
-            .project-info { padding: 24px; }
-            .photo-grid { grid-template-columns: 1fr; height: auto; }
-            .grid-item { height: 350px; }
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: white; }
+        .hero-slide { transition: opacity 0.8s ease-in-out; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .bg-grid { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <div class="container">
+    <!-- 頂部導覽列 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/5">
+        <div class="text-sm tracking-[0.2em] font-medium uppercase">Betty Tseng</div>
+        <div class="hidden md:flex space-x-8 text-[11px] tracking-widest text-white/70 uppercase">
+            <a href="#work" class="hover:text-white transition-colors">Work</a>
+            <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </div>
+        <div class="md:hidden text-white/70"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- 滿版 Hero 輪播區塊 -->
+    <section class="relative w-full h-[80vh] md:h-[800px] mt-16 overflow-hidden bg-black cursor-pointer" onclick="nextSlide()">
+        <!-- 圖片 -->
+        <img id="hero-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2850" class="absolute inset-0 w-full h-full object-cover opacity-80 hero-slide" alt="Hero">
         
-        <!-- ==========================================
-             第一部分：首頁巨型橫幅 (Hero Banner)
-             替換照片：將 src="hero-image.jpg" 換成你的照片
-             建議：使用橫式的個人形象照或工作照
-        =========================================== -->
-        <header class="hero-section fade-in-section is-visible">
-            <!-- 背景照片 -->
-            <img src="hero-image.jpg" alt="Ying-Chih Tseng" class="hero-bg" id="heroBg">
-            <div class="hero-overlay"></div>
+        <!-- 漸層遮罩 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent"></div>
+
+        <!-- 輪播進度 -->
+        <div class="absolute top-8 right-6 md:right-12 text-sm tracking-widest text-white/70 z-10" id="hero-counter">01 / 03</div>
+
+        <!-- 文字內容 -->
+        <div class="absolute bottom-16 md:bottom-32 left-6 md:left-[100px] z-10">
+            <h1 id="hero-title1" class="text-4xl md:text-[64px] font-bold leading-[1.05] tracking-tight">NTU Master</h1>
+            <h1 id="hero-title2" class="text-4xl md:text-[64px] font-bold leading-[1.05] tracking-tight">Project Manager</h1>
+            <h1 id="hero-title3" class="text-4xl md:text-[64px] font-bold leading-[1.05] tracking-tight">Research Specialist</h1>
             
-            <div class="hero-content">
-                <h1 class="hero-title">NTU Master<br>Product Manager<br>& Coordinator</h1>
-                <div class="tag-group">
-                    <span class="tag">National Taiwan University</span>
-                    <span class="tag">National Cheng Kung University</span>
-                    <span class="tag">TOEIC 895 (Gold)</span>
-                </div>
+            <div id="hero-tags" class="flex flex-wrap gap-3 mt-8 md:mt-12">
+                <span class="text-[10px] md:text-xs tracking-wider uppercase border border-white/20 px-3 py-1 rounded-full text-white/80 bg-white/5 backdrop-blur-sm">National Taiwan University</span>
+                <span class="text-[10px] md:text-xs tracking-wider uppercase border border-white/20 px-3 py-1 rounded-full text-white/80 bg-white/5 backdrop-blur-sm">Data Analysis</span>
+                <span class="text-[10px] md:text-xs tracking-wider uppercase border border-white/20 px-3 py-1 rounded-full text-white/80 bg-white/5 backdrop-blur-sm">Policy Research</span>
             </div>
-        </header>
+        </div>
+    </section>
 
+    <!-- 專案作品區 -->
+    <section id="work" class="py-24 md:py-40 px-6 md:px-12 max-w-[1440px] mx-auto">
+        <div class="text-center mb-16 md:mb-24 reveal">
+            <div class="text-[9px] md:text-[11px] uppercase tracking-[3px] text-white/50 mb-4">Selected Work</div>
+            <h2 class="text-[26px] md:text-[40px] font-bold text-white">Project Management & Analysis</h2>
+        </div>
 
-        <!-- ==========================================
-             第二部分：大型專案卡片 (Experience)
-             替換照片：修改 src="project-1.jpg" 等
-             建議：放具有科技感、活動現場或簡報的照片
-        =========================================== -->
-        <section class="fade-in-section">
-            <div class="section-header">
-                <div class="section-category">Selected Experience</div>
-                <h2 class="section-title">Management & Execution</h2>
-            </div>
-
-            <!-- 卡片 1：NGO 專案 -->
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <!-- 專案照片 1 -->
-                    <img src="project-1.jpg" alt="Green Energy NGO" class="project-img parallax-img">
-                </div>
-                <div class="project-info">
-                    <div class="project-category">PROJECT MANAGEMENT / NGO</div>
-                    <h2 class="project-title">Green Energy NGO Fundraiser</h2>
-                    <p class="project-desc">在資源有限下統籌 10 桌規模募款餐會，精準媒合藝術品拍賣創下 50 萬元募款佳績，並成功對接政府官員取得總統開場影片。</p>
-                    <div class="tag-group">
-                        <span class="tag">Event Coordination</span>
-                        <span class="tag">Public Relations</span>
-                        <span class="tag">Resource Matchmaking</span>
+        <div class="flex flex-col space-y-16 md:space-y-32">
+            <!-- 專案 1 -->
+            <div class="flex flex-col md:items-start reveal">
+                <div class="group w-full md:w-[85%] bg-cardbg rounded-[16px] border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="relative w-full aspect-video md:aspect-[16/7] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Project 1">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-6 md:p-10 flex flex-col">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-[1.5px] text-[#8ea8c3] mb-3">RESEARCH & ANALYSIS</span>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-4">Commercial Services Development Research</h3>
+                        <p class="text-[13px] md:text-[15px] leading-[1.6] text-white/55 max-w-2xl mb-8">Comprehensive data collection and analysis for future commercial center development in Shanxi Province. Evaluated market trends and provided strategic direction.</p>
+                        <div class="flex gap-2">
+                            <span class="text-[10px] md:text-[11px] text-white/70 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">Data Analysis</span>
+                            <span class="text-[10px] md:text-[11px] text-white/70 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">Report Writing</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 卡片 2：品牌公關 -->
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <!-- 專案照片 2 -->
-                    <img src="project-2.jpg" alt="Brand PR" class="project-img parallax-img">
-                </div>
-                <div class="project-info">
-                    <div class="project-category">PUBLIC RELATIONS / BRANDING</div>
-                    <h2 class="project-title">Luxury Brand Ambassador & PR</h2>
-                    <p class="project-desc">累積三年高階客戶服務與大型展會實戰經驗。擔任奢侈品與化妝品專櫃大使，敏銳洞察客戶需求，曾創下單日營業額破 10 萬元成績。並於多場國際展會提供中英雙語接待。</p>
-                    <div class="tag-group">
-                        <span class="tag">Bilingual Reception</span>
-                        <span class="tag">Client Relations</span>
-                        <span class="tag">Crisis Management</span>
+            <!-- 專案 2 -->
+            <div class="flex flex-col md:items-end reveal">
+                <div class="group w-full md:w-[85%] bg-cardbg rounded-[16px] border border-white/10 overflow-hidden cursor-pointer">
+                    <div class="relative w-full aspect-video md:aspect-[16/7] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=2426" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" alt="Project 2">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+                    <div class="p-6 md:p-10 flex flex-col">
+                        <span class="text-[9px] md:text-[11px] uppercase tracking-[1.5px] text-[#8ea8c3] mb-3">PROJECT MANAGEMENT & EVENT PLANNING</span>
+                        <h3 class="text-xl md:text-3xl font-bold text-white mb-4">Green Energy NGO & Exhibition Marketing</h3>
+                        <p class="text-[13px] md:text-[15px] leading-[1.6] text-white/55 max-w-2xl mb-8">Coordinated fundraising events for a green energy NGO and served as a bilingual ambassador for international exhibitions, demonstrating strong communication skills.</p>
+                        <div class="flex gap-2">
+                            <span class="text-[10px] md:text-[11px] text-white/70 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">NGO Management</span>
+                            <span class="text-[10px] md:text-[11px] text-white/70 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">Bilingual Event Host</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- 卡片 3：市場研究 -->
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <!-- 專案照片 3 -->
-                    <img src="project-3.jpg" alt="Market Research" class="project-img parallax-img">
-                </div>
-                <div class="project-info">
-                    <div class="project-category">RESEARCH / ANALYSIS</div>
-                    <h2 class="project-title">Cross-Provincial Market Analysis</h2>
-                    <p class="project-desc">赴山西太原擔任研究專員，追蹤中國四省市商業綜合服務中心發展，獨立產出 11 頁深度分析報告，為企業提供實質商業發展方向建議。</p>
-                    <div class="tag-group">
-                        <span class="tag">Data Analysis</span>
-                        <span class="tag">Market Research</span>
-                        <span class="tag">Report Writing</span>
-                    </div>
-                </div>
+    <!-- 圖片拼貼區塊 -->
+    <section id="experience" class="py-12 md:py-24 px-4 md:px-6 max-w-[1440px] mx-auto">
+        <div class="relative w-full h-[60vh] md:h-[70vh] mb-4 md:mb-6 overflow-hidden group reveal">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2850" class="w-full h-full object-cover transition-transform duration-[10s] ease-linear group-hover:scale-105" alt="Global">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="absolute bottom-10 left-6 md:bottom-20 md:left-12">
+                <h2 class="text-[40px] md:text-[80px] font-bold leading-[0.95] text-white drop-shadow-2xl">Global<br>Experience</h2>
             </div>
-        </section>
+        </div>
 
-
-        <!-- ==========================================
-             第三部分：網格照片區塊 (Global Citizen 概念)
-             替換照片：修改 src="grid-1.jpg" 等
-             建議：這裡可以放生活照、留學/學伴交流照、校園演講照
-        =========================================== -->
-        <section class="fade-in-section">
-            <div class="section-header">
-                <div class="section-category">Beyond Work</div>
-                <h2 class="section-title">Global Citizen & Explorer</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal">
+                <img src="https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">Global<br>Citizen</h3>
             </div>
-            
-            <div class="photo-grid">
-                <!-- 左側照片 -->
-                <div class="grid-item">
-                    <!-- 照片 A -->
-                    <img src="grid-1.jpg" alt="Life 1" class="parallax-img">
-                    <div class="hero-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);"></div>
-                    <div class="grid-overlay-text">
-                        <h3>Cultural<br>Exchange</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Sciences Po Lyon Buddy / Model APEC</p>
-                    </div>
-                </div>
-
-                <!-- 中間照片 -->
-                <div class="grid-item">
-                    <!-- 照片 B -->
-                    <img src="grid-2.jpg" alt="Life 2" class="parallax-img">
-                </div>
-
-                <!-- 右側照片 -->
-                <div class="grid-item">
-                    <!-- 照片 C -->
-                    <img src="grid-3.jpg" alt="Life 3" class="parallax-img">
-                    <div class="hero-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);"></div>
-                    <div class="grid-overlay-text">
-                        <h3>Campus<br>Speaker</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">6 Sessions for NCKU Freshmen</p>
-                    </div>
-                </div>
+            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal" style="transition-delay: 100ms;">
+                <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">Brand<br>Ambassador</h3>
             </div>
-        </section>
-
-        <!-- 頁尾 (參考 image_2.png 底部) -->
-        <footer class="fade-in-section" style="text-align: center; padding: 100px 0 60px; border-top: 1px solid var(--border-color);">
-            <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Ready to build something amazing?</h2>
-            <div class="tag-group" style="justify-content: center;">
-                <span class="tag" style="padding: 12px 24px; font-size: 1rem; color: #fff;">betty54776@gmail.com</span>
-                <span class="tag" style="padding: 12px 24px; font-size: 1rem; color: #fff;">0970-473-914</span>
+            <div class="relative h-[400px] md:h-[600px] group overflow-hidden bg-cardbg reveal" style="transition-delay: 200ms;">
+                <img src="https://images.unsplash.com/photo-1512412046714-3075bc7b808e?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+                <h3 class="absolute bottom-8 left-6 text-2xl md:text-[32px] font-bold text-white block leading-[1.1]">Digital<br>Storyteller</h3>
             </div>
-        </footer>
+        </div>
+    </section>
 
-    </div>
+    <!-- Footer / CTA -->
+    <footer id="contact" class="relative py-32 md:py-48 flex flex-col items-center justify-center text-center overflow-hidden bg-grid">
+        <div class="z-10 reveal">
+            <h2 class="text-3xl md:text-[56px] font-bold text-white mb-12">Ready to build <br class="hidden md:block">something amazing?</h2>
+            <div class="flex items-center justify-center space-x-6 md:space-x-8">
+                <a href="mailto:betty54776@gmail.com" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-cardbg border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fas fa-envelope"></i></a>
+                <a href="#" class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-cardbg border border-white/10 flex items-center justify-center hover:bg-[#0077b5] hover:border-[#0077b5] transition-all"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
 
-    <!-- 交互動效腳本 -->
+    <!-- JavaScript 動畫與輪播邏輯 -->
     <script>
-        // 1. 滾動漸顯動畫 (Fade-in on scroll)
+        // 輪播資料
+        const slides = [
+            {
+                img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2850",
+                t1: "NTU Master", t2: "Project Manager", t3: "Research Specialist",
+                tags: ["National Taiwan University", "Data Analysis", "Policy Research"]
+            },
+            {
+                img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&q=80&w=2850",
+                t1: "Global", t2: "Experience", t3: "Builder",
+                tags: ["Taipei", "Shanghai", "Beijing", "Shanxi"]
+            },
+            {
+                img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2850",
+                t1: "Brand", t2: "Ambassador", t3: "Communicator",
+                tags: ["Green Energy NGO", "Bilingual Event Host", "Live Streaming"]
+            }
+        ];
+
+        let current = 0;
+        
+        function updateSlide() {
+            const data = slides[current];
+            const imgEl = document.getElementById("hero-img");
+            
+            // 圖片淡出淡入效果
+            imgEl.style.opacity = '0';
+            setTimeout(() => {
+                imgEl.src = data.img;
+                document.getElementById("hero-title1").innerText = data.t1;
+                document.getElementById("hero-title2").innerText = data.t2;
+                document.getElementById("hero-title3").innerText = data.t3;
+                document.getElementById("hero-counter").innerText = `0${current + 1} / 0${slides.length}`;
+                
+                // 更新 Tags
+                const tagsContainer = document.getElementById("hero-tags");
+                tagsContainer.innerHTML = '';
+                data.tags.forEach(tag => {
+                    tagsContainer.innerHTML += `<span class="text-[10px] md:text-xs tracking-wider uppercase border border-white/20 px-3 py-1 rounded-full text-white/80 bg-white/5 backdrop-blur-sm">${tag}</span>`;
+                });
+                
+                imgEl.style.opacity = '0.8';
+            }, 300);
+        }
+
+        function nextSlide() {
+            current = (current + 1) % slides.length;
+            updateSlide();
+        }
+
+        // 自動輪播
+        setInterval(nextSlide, 6000);
+
+        // 捲動動畫 (Scroll Reveal)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
+                    entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
-
-        // 2. 輕量視差效果 (Parallax on scroll)
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            
-            // 首頁背景圖輕微下移
-            const heroBg = document.getElementById('heroBg');
-            if(heroBg) {
-                heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
-            
-            // 卡片內圖片輕微視差
-            document.querySelectorAll('.parallax-img').forEach(img => {
-                const rect = img.getBoundingClientRect();
-                // 只有當圖片在視窗內時才計算視差，提升效能
-                if(rect.top < window.innerHeight && rect.bottom > 0) {
-                    const yPos = (rect.top - window.innerHeight/2) * 0.1;
-                    img.style.objectPosition = `50% calc(50% + ${yPos}px)`;
-                }
-            });
-        });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
 </body>
 </html>
