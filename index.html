@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曾盈綺 Ying-Chih Tseng | Product Manager Portfolio</title>
+    <style>
+        /* 基礎重置與柔和明亮系色彩 (Apple Light Style) */
+        :root {
+            --bg-color: #fcfaf5; /* 溫柔的米白底色 */
+            --text-primary: #332f2a; /* 深咖啡灰，比純黑柔和 */
+            --text-secondary: #7a7369; /* 輔助文字顏色 */
+            --accent-yellow: #fadc6f; /* 明亮鵝黃色 */
+            --accent-yellow-light: #fff2c2; /* 淺鵝黃，用於高亮 */
+            --glass-bg: rgba(255, 255, 255, 0.65); /* 亮色液態玻璃 */
+            --glass-border: rgba(255, 255, 255, 1);
+            --shadow: rgba(140, 120, 80, 0.08); /* 溫暖的陰影 */
+            --shadow-hover: rgba(140, 120, 80, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro TC", "PingFang TC", "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* 視差背景：鵝黃色柔和呼吸漸層 */
+        .ambient-light {
+            position: fixed;
+            top: 10%;
+            left: 20%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--accent-yellow-light) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.6;
+            z-index: -1;
+            animation: breathe 10s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        .ambient-light-2 {
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #ffe699 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: breathe 8s infinite alternate-reverse ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(0.9) translate(0, 0); opacity: 0.5; }
+            100% { transform: scale(1.1) translate(2%, 2%); opacity: 0.8; }
+        }
+
+        /* 佈局容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header, section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        section.visible, header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 標題與文字 */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 標題底下的鵝黃色螢光筆效果 */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: var(--accent-yellow);
+            opacity: 0.4;
+            z-index: -1;
+            border-radius: 6px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        /* 亮色系液態玻璃卡片 */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 32px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px var(--shadow-hover);
+        }
+
+        /* 照片預留區塊 */
+        .photo-placeholder {
+            background-color: #f3ede1;
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed #d1c7b8;
+        }
+
+        /* 當你放入真實圖片時，圖片會完美覆蓋 */
+        .photo-placeholder img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* 照片上的漸層文字遮罩 */
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+            color: white;
+            z-index: 2;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-placeholder:hover .photo-caption {
+            opacity: 1;
+        }
+
+        /* 便當盒佈局 (Bento Box) */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            grid-auto-rows: minmax(180px, auto);
+        }
+
+        .col-span-2 { grid-column: span 2; }
+        .col-span-3 { grid-column: span 3; }
+        .col-span-4 { grid-column: span 4; }
+        .row-span-2 { grid-row: span 2; }
+
+        @media (max-width: 992px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .col-span-3 { grid-column: span 2; }
+        }
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+            .row-span-2 { grid-row: span 1; }
+        }
+
+        /* 標籤與高亮文字 */
+        .tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #ffffff;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin: 0 8px 8px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .highlight-text {
+            display: inline-block;
+            background-color: var(--accent-yellow-light);
+            padding: 2px 10px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        ul { list-style-type: none; }
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #dcb324;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+        
+        .date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: block;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 柔和背景光 -->
+    <div class="ambient-light"></div>
+    <div class="ambient-light-2"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header id="hero" class="parallax" data-speed="0.4">
+            <h1>曾盈綺 Ying-Chih Tseng</h1>
+            <div class="subtitle">專案管理人員 / 企劃人員 / 行政統籌</div>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px;">
+                <span class="tag">📞 0970-473-914</span>
+                <span class="tag">✉️ betty54776@gmail.com</span>
+            </div>
+        </header>
+
+        <!-- 將學歷背景移至最前方 -->
+        <section id="education" class="parallax" data-speed="0.2">
+            <h2>學歷背景</h2>
+            <div class="bento-grid">
+                <div class="glass-card col-span-2">
+                    <h3>國立臺灣大學</h3>
+                    <div class="highlight-text">國家發展研究所 碩士</div>
+                    <span class="date">2023/09 - 2026/08</span>
+                    <p style="color: var(--text-secondary); margin-top: auto;">具備出色的文獻梳理與長篇報告撰寫能力，論文口試獲得高分肯定。</p>
+                </div>
+                <div class="glass-card col-span-2">
+                    <h3>國立成功大學</h3>
+                    <div class="highlight-text">政治學系 學士</div>
+                    <span class="date">2019/02 - 2023/01</span>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>學生會會長參選人：</strong>籌組團隊提出政策，積極跨單位協商。</li>
+                        <li><strong>校園講座講者：</strong>受邀對成大新生進行 6 場經驗分享演講。</li>
+                        <li><strong>生涯教練計畫副小組長：</strong>規劃企業參訪，對接企業高層。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作照片區 (預留位) -->
+        <section id="gallery" class="parallax" data-speed="0.15">
+            <h2>工作剪影</h2>
+            <div class="bento-grid">
+                <!-- 大照片 -->
+                <div class="glass-card col-span-2 row-span-2" style="padding: 12px;">
+                    <div class="photo-placeholder">
+                        <span>📷 工作照片預留區 (大)</span>
+                        <!-- 替換以下 src 即可顯示圖片 -->
+                        <!-- <img src="你的照片連結.jpg" alt="活動統籌現場"> -->
+                        <div class="photo-caption">統籌 10 桌規模募款餐會現場</div>
+                    </div>
+                </div>
+                <!-- 兩張小照片 -->
+                <div class="glass-card col-span-2" style="padding: 12px;">
+                    <div class="photo-placeholder">
+                        <span>📷 工作照片預留區 (橫)</span>
+                        <!-- <img src="你的照片連結2.jpg" alt="品牌接待"> -->
+                        <div class="photo-caption">國際級展會雙語接待</div>
+                    </div>
+                </div>
+                <div class="glass-card col-span-2" style="padding: 12px;">
+                    <div class="photo-placeholder">
+                        <span>📷 工作照片預留區 (橫)</span>
+                        <!-- <img src="你的照片連結3.jpg" alt="品牌公關"> -->
+                        <div class="photo-caption">化妝品牌專櫃前線營運</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 個人優勢與核心成就 -->
+        <section id="strengths" class="parallax" data-speed="0.1">
+            <h2>個人優勢與核心成就</h2>
+            <div class="bento-grid">
+                <div class="glass-card col-span-2">
+                    <h3>專案統籌與資源媒合</h3>
+                    <p style="color: var(--text-secondary); margin-top: 12px;">在綠能 NGO 資源有限下成功統籌募款餐會，對接政府官員取得總統影片；精準媒合藝術品拍賣，創下單筆 50 萬元募款佳績。</p>
+                </div>
+                <div class="glass-card col-span-2">
+                    <h3>三年品牌公關與前線營運</h3>
+                    <p style="color: var(--text-secondary); margin-top: 12px;">擁有極佳專業儀態與高階客戶應對能力。於化妝品牌專櫃發揮團隊合作，曾創下單日營業額破 10 萬元的成績。</p>
+                </div>
+                <div class="glass-card col-span-2">
+                    <h3>資料分析與報告撰寫</h3>
+                    <p style="color: var(--text-secondary); margin-top: 12px;">能獨立蒐集跨區域市場數據，曾產出 11 頁之中國四省市商業綜合體發展報告，具備扎實的研究訓練與資訊統整能力。</p>
+                </div>
+                <div class="glass-card col-span-2">
+                    <h3>跨文化雙語溝通</h3>
+                    <p style="color: var(--text-secondary); margin-top: 12px;">擁有多場大型國際展會之中英雙語接待、企業高層對接，以及跨部門協商實戰經驗，具備高抗壓性與靈活應變能力。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 經歷 (Bento Box) -->
+        <section id="experience" class="parallax" data-speed="0.1">
+            <h2>工作與專案經歷</h2>
+            <div class="bento-grid">
+                <!-- NGO經歷 -->
+                <div class="glass-card col-span-2 row-span-2">
+                    <h3>行政人員</h3>
+                    <div class="highlight-text">綠能 NGO (台北)</div>
+                    <span class="date">2023/06</span>
+                    <ul>
+                        <li><strong>大型活動統籌：</strong>規劃並執行組織年度募款餐會，控管活動流程與行政庶務。</li>
+                        <li><strong>公關與資源開發：</strong>負責聯繫政府單位及官員。接洽藝術家與潛在企業買家，順利拍出藝術品，為組織籌募 50 萬元資金。</li>
+                    </ul>
+                </div>
+
+                <!-- 公關與品牌 -->
+                <div class="glass-card col-span-2 row-span-2">
+                    <h3>品牌形象與活動公關</h3>
+                    <div class="highlight-text">自由接案 (累積三年經歷)</div>
+                    <span class="date">長期經歷整合</span>
+                    <ul>
+                        <li><strong>精品形象大使：</strong>擔任奢侈品接待與專櫃大使。洞察客戶需求，達成單日破 10 萬元佳績。</li>
+                        <li><strong>大型展會展示：</strong>參與政府活動、加盟展等大型專案，確保品牌形象完美呈現。</li>
+                        <li><strong>雙語臨場應變：</strong>於國際級展會提供外賓專業諮詢並靈活排解現場突發狀況。</li>
+                    </ul>
+                </div>
+
+                <!-- 研究與企劃 -->
+                <div class="glass-card col-span-2">
+                    <h3>研究科專員</h3>
+                    <div class="highlight-text">山西太原 (公司名保密)</div>
+                    <span class="date">2026/07 - 2026/08</span>
+                    <ul>
+                        <li><strong>市場研究與報告撰寫：</strong>追蹤跨省份商業中心發展，獨立完成 11 頁深度分析報告提供實質建議。</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card col-span-2">
+                    <h3>人力資源與專案行政</h3>
+                    <div class="highlight-text">陝西歷史博物館 (陝西西安)</div>
+                    <span class="date">2025/07 - 2025/08</span>
+                    <ul>
+                        <li><strong>展覽企劃協助：</strong>籌辦「唐代歷史特展」，負責跨部門聯繫與展品調度，確保進度達標。</li>
+                    </ul>
+                </div>
+
+                <!-- 行銷與研究實習 (橫向擴展) -->
+                <div class="glass-card col-span-4">
+                    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3>直播主與行銷實習</h3>
+                            <span class="date">皇冠集團 (上海)</span>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem;">多平台營運，零初始流量下達成單場最高 300 人觀看。</p>
+                        </div>
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3>金融研究員</h3>
+                            <span class="date">北京證券交易所 (北京)</span>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem;">比較兩岸上市櫃制度差異，將法規系統化為內部參考資料。</p>
+                        </div>
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3>電商部門實習生</h3>
+                            <span class="date">大昌行 (上海)</span>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem;">電商後台操作，接洽多位 KOL 進行商業合作與推廣。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 專業技能 -->
+        <section id="skills">
+            <h2>專業技能與認證</h2>
+            <div class="glass-card">
+                <div style="margin-bottom: 24px;">
+                    <h3>專業能力</h3>
+                    <div style="margin-top: 12px;">
+                        <span class="tag">專案管理</span>
+                        <span class="tag">提案與簡報技巧</span>
+                        <span class="tag">跨部門溝通協調</span>
+                        <span class="tag">資料統整與分析</span>
+                        <span class="tag">商業報告撰寫</span>
+                        <span class="tag">公關活動統籌</span>
+                    </div>
+                </div>
+                <div>
+                    <h3>語言與證照</h3>
+                    <div style="margin-top: 12px;">
+                        <span class="tag" style="background-color: var(--accent-yellow-light); border:none; font-weight: 500;">TOEIC 895 分 (金色證書)</span>
+                        <span class="tag">英文 (聽說讀寫精通)</span>
+                        <span class="tag">台語 (中等)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 40px 0 80px; color: var(--text-secondary);">
+            <p>© 2026 Ying-Chih Tseng. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- 交互動效腳本 -->
+    <script>
+        // 頁面滾動漸出動畫
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, header').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 柔和的視差滾動效果 (Parallax)
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            document.querySelectorAll('.parallax').forEach(el => {
+                const speed = el.getAttribute('data-speed');
+                const yPos = -(scrolled * speed);
+                el.style.transform = `translateY(${yPos * 0.1}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
